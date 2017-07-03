@@ -1,7 +1,11 @@
-<div class="container">
-  <div class="list-group">
-    <span class="{{'span-left label difficulty diff-' + problem.difficulty.toLocaleLowerCase()}}">{{problem.difficulty.toLocaleUpperCase()}}</span>
-    <strong class="title">{{problem.id}} . {{problem.name}}</strong>
+
+<div class="container" *ngIf="problem">
+  <div class="col-xs-12 col-md-4">
+    <h1>{{problem.id}} . {{problem.name}}</h1>
     <p class="dec">{{problem.desc}}</p>
+  </div>
+
+  <div class="hidden-xs col-sm-12 col-md-8">
+    <!--<app-editor></app-editor>-->
   </div>
 </div>

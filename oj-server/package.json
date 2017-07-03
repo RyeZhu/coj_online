@@ -1,0 +1,22 @@
+{
+  "name": "oj-serve",
+  "version": "1.0.0",
+  "description": "like leetcode online algorithm",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "leetcode",
+    "online"
+  ],
+  "author": "michael",
+  "license": "ISC",
+  "dependencies": {
+    "assert": "^1.4.1",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mongoose": "^4.10.6",
+    "path": "^0.12.7"
+  }
+}

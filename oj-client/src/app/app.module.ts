@@ -13,6 +13,8 @@ import {AppComponent} from './app.component';
 import {DataService} from './services/data.service';
 
 //3. import problems component
+import {NavbarComponent} from './components/navbar/navbar.component';
+import {NewProblemComponent} from './components/new-problem/new-problem.component';
 import {ProblemListComponent} from './components/problem-list/problem-list.component';
 import {ProblemDetailComponent} from './components/problem-detail/problem-detail.component';
 
@@ -20,6 +22,8 @@ import {ProblemDetailComponent} from './components/problem-detail/problem-detail
 @NgModule({
   declarations: [
     AppComponent,
+    NavbarComponent,
+    NewProblemComponent,
     ProblemListComponent,
     ProblemDetailComponent
   ],
@@ -30,7 +34,7 @@ import {ProblemDetailComponent} from './components/problem-detail/problem-detail
     routing
   ],
   providers: [{
-    provide: "data",
+    provide: 'data',
     useClass: DataService
   }],
   bootstrap: [AppComponent]
