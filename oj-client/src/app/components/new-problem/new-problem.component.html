@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="this.auth.isAuthenticated()">
   <form #formRef="ngForm">
     <div class="from-group">
       <label for="problemName">Problem Name</label>
@@ -16,6 +16,7 @@
     <div class="from-group">
       <label for="difficulty">Difficulty</label>
       <select class="form-control" id="difficulty" [(ngModel)]="newProblem.difficulty" name="difficulty">
+        <option disabled="disabled" value="">Select difficulty</option>
         <option *ngFor="let difficulty of difficulties" [value]="difficulty">
           {{difficulty}}
         </option>
@@ -29,3 +30,6 @@
     </div>
   </form>
 </div>
+
+<br/>
+<br/>

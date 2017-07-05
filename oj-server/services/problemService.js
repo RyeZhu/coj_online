@@ -4,17 +4,18 @@
 
 var ProblemModel = require('../models/problemModel');
 
-const problemFileds = ['-_id', 'id', 'name', 'desc', 'difficulty'];
-
 
 /**
  * 显示出所有的题目
  * @returns {Promise}
  */
 var getProblems = function () {
+    console.log('getProblems');
+
     return new Promise((resolv, reject) => {
-        ProblemModel.find({}).select(problemFileds).exec((error, problems) => {
+        ProblemModel.find({}, function (error, problems) {
             if (error) {
+                console.error(error);
                 reject(error);
             } else {
                 resolv(problems);
@@ -30,7 +31,7 @@ var getProblems = function () {
  */
 var getProblem = function (id) {
     return new Promise((resolv, reject) => {
-        ProblemModel.findOne({id: id}).select(problemFileds).exec((error, problem) => {
+        ProblemModel.findOne({id: id}, function (error, problem) {
             if (error) {
                 reject(error);
             } else {
@@ -46,9 +47,12 @@ var getProblem = function (id) {
  * @returns {Promise}
  */
 var addProblem = function (newProblem) {
-    //console.warn(newProblem);
+
+
+
+    console.warn(newProblem);
     return new Promise((resolv, reject) => {
-        ProblemModel.findOne({name: newProblem.name}, (error, problem) => {
+        ProblemModel.findOne({name: newProblem.name}, function (error, problem) {
             if (problem) {
                 reject("Problem alreay exist!");
             } else {

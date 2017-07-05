@@ -10,27 +10,42 @@ import {Subscription} from 'rxjs/Subscription';
 })
 export class ProblemListComponent implements OnInit, OnDestroy {
   problems: Problem[];
-  subscriptionProblem: Subscription;
 
-  constructor(@Inject('data') private data) {
+  pageId: number = 0;
+
+  searchTerm: string = '';
+  searchSubscription: Subscription;
+  problemsSubscription: Subscription;
+  itemsPerPage: number;
+
+  constructor(@Inject('data') public data,
+              @Inject('input') private input) {
   }
 
-  ngOnInit() {
-    this.getProblems()
+  ngOnInit(): void {
+    this.itemsPerPage = this.data.getItemsPerPage();
+    this.getProblems();
+    this.getSearchTerm();
   }
 
   ngOnDestroy() {
-    this.subscriptionProblem.unsubscribe();
+    this.searchSubscription.unsubscribe();
+    this.problemsSubscription.unsubscribe();
   }
 
   getProblems() {
     // this.problems = this.data.getProblems();
-    this.subscriptionProblem = this.data.getProblems()
+    this.problemsSubscription = this.data.getProblems()
       .subscribe(
         problems => this.problems = problems,
         error => console.log(error),
         () => console.log('get problem complete')
       );
+  }
+
+  getSearchTerm(): void {
+    this.searchSubscription = this.input.getInput()
+      .subscribe(searchTerm => this.searchTerm = searchTerm);
   }
 
 }

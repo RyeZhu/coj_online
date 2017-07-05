@@ -15,8 +15,15 @@
   "dependencies": {
     "assert": "^1.4.1",
     "body-parser": "^1.17.2",
+    "colors": "^1.1.2",
+    "dotenv": "^4.0.0",
     "express": "^4.15.3",
+    "forest-express-mongoose": "^1.1.10",
+    "http": "0.0.0",
     "mongoose": "^4.10.6",
-    "path": "^0.12.7"
+    "node-rest-client": "^3.1.0",
+    "path": "^0.12.7",
+    "redis": "^2.7.1",
+    "socket.io": "^2.0.3"
   }
 }

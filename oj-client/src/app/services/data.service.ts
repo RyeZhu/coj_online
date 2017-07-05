@@ -1,4 +1,4 @@
-import {Injectable, OnDestroy, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Http, Response, Headers} from '@angular/http';
 import {Problem} from '../models/problem.model';
 // import {PROBLEMS} from "../mock-problems";
@@ -7,23 +7,20 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/toPromise';
 
+const PAGE_ITEMSPERPAGE: number = 10;
 
 @Injectable()
-export class DataService implements OnInit, OnDestroy {
+export class DataService {
 
   private problemsSource$: BehaviorSubject<Problem[]> = new BehaviorSubject<Problem[]>([]);
 
   constructor(private http: Http) {
   }
 
-  ngOnInit(): void {
-
-  }
-
-  ngOnDestroy(): void {
-  }
-
-  //1. get all problems
+  /**
+   * get all problems
+   * @returns {Observable<Problem[]>}
+   */
   getProblems(): Observable<Problem[]> {
     let problemsUrl: string = '/api/v1/problems';
 
@@ -38,12 +35,21 @@ export class DataService implements OnInit, OnDestroy {
     return this.problemsSource$.asObservable();
   }
 
+  /**
+   * handle promise error
+   * @param error
+   * @returns {Promise<never>}
+   */
   private handleError(error: Response | any): void {
     console.error('An error occurred', error);
   }
 
 
-  //2. get problem by id
+  /**
+   * get problem by id
+   * @param id
+   * @returns {Promise<Problem>}
+   */
   getProblem(id: number): Observable<Problem> {
     let problemUrl: string = `/api/v1/problem/${id}`;
     console.log('getProblem:' + problemUrl);
@@ -60,7 +66,12 @@ export class DataService implements OnInit, OnDestroy {
     });
   }
 
-  //3. add New Problem
+
+  /**
+   * add New Problem
+   * @param problem
+   * @returns {Promise<Problem>}
+   */
   addProblem(problem: Problem): Observable<Problem> {
     let problemUrl: string = `/api/v1/problems/`;
     console.log('addProblem:' + problemUrl);
@@ -79,6 +90,23 @@ export class DataService implements OnInit, OnDestroy {
           () => console.log(`request ${problemUrl} complete`)
         )
     });
+  }
+
+  /**
+   * get problem list number of items per page
+   * @returns {number}
+   */
+  getItemsPerPage(): number {
+    return PAGE_ITEMSPERPAGE;
+  }
+
+  buildAndRun(language: string, code: string): Observable<any> {
+    let headers: Headers = new Headers({'content-type': 'application/json'});
+    let data: any = {
+      language: language,
+      code: code
+    };
+    return this.http.post('/api/v1/build_and_run', data, headers).map((res: Response) => res.json());
   }
 
 }

@@ -1,7 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {Problem} from '../../models/problem.model';
-import {DataService} from '../../services/data.service';
 import {Router} from '@angular/router';
+
+import {DataService} from "../../services/data.service";
+import {AuthService} from "../../services/auth.service";
 
 
 const DEFAULT_PROBLEM: Problem = Object.freeze({
@@ -21,7 +23,8 @@ export class NewProblemComponent implements OnInit {
 
   newProblem: Problem = Object.assign({}, DEFAULT_PROBLEM);
 
-  constructor(@Inject('data') private data: DataService,
+  constructor(@Inject("data") public data: DataService,
+              @Inject("auth") public auth: AuthService,
               private router: Router) {
   }
 
